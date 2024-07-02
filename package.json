@@ -10,17 +10,27 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hookform/error-message": "^2.0.1",
     "@mui/icons-material": "^5.15.15",
     "@mui/material": "^5.15.15",
     "@mui/x-tree-view": "^7.2.0",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "crypto-js": "^4.2.0",
+    "formik": "^2.4.6",
+    "framer-motion": "^11.2.12",
+    "rc-pagination": "^4.2.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.2",
+    "react-code-input": "^3.10.1",
+    "react-datepicker": "^7.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.2",
-    "react-router-dom": "^6.22.3"
+    "react-loader-spinner": "^6.1.6",
+    "react-router-dom": "^6.22.3",
+    "react-select": "^5.8.0",
+    "recharts": "^2.12.7",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@types/crypto-js": "^4.2.2",

@@ -1,0 +1,120 @@
+/* form.css */
+
+/* Base styles and CSS variables for theming */
+:root {
+  --primary-color: #007bff;
+  --primary-hover-color: #0056b3;
+  --error-color: #d9534f;
+  --border-radius: 4px;
+  --font-family: "Helvetica Neue", sans-serif;
+  --background-image: linear-gradient(to top, #d299c2 0%, #fef9d7 100%);
+  --form-background-color: #ffffff;
+  --input-border-color: #ced4da;
+  --input-focus-border-color: #80bdff;
+  --input-focus-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+}
+
+body {
+  font-family: var(--font-family);
+  background-image: var(--background-image);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  padding: 100px;
+}
+
+.common-form {
+  background-color: var(--form-background-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.common-form ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.common-form li {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.common-form label {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.common-form input[type="text"],
+.common-form input[type="password"],
+.common-form select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--input-border-color);
+  border-radius: var(--border-radius);
+  box-sizing: border-box;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  font-size: 14px;
+}
+
+.common-form input[type="text"]:focus,
+.common-form input[type="password"]:focus,
+.common-form select:focus {
+  border-color: var(--input-focus-border-color);
+  outline: none;
+  box-shadow: var(--input-focus-shadow);
+}
+
+.common-form .error-message {
+  color: var(--error-color);
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+.common-form input[type="submit"] {
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.common-form input[type="submit"]:hover {
+  background-color: var(--primary-hover-color);
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .common-form {
+    padding: 20px;
+  }
+
+  .common-form li {
+    margin-bottom: 15px;
+  }
+
+  .common-form input[type="text"],
+  .common-form input[type="password"],
+  .common-form select {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .common-form input[type="submit"] {
+    padding: 10px;
+    font-size: 14px;
+  }
+}
