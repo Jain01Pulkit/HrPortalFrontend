@@ -1,45 +1,45 @@
-import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
+import { Form, Formik } from "formik";
+import {
+  Input,
+  PasswordInput,
+} from "../../../Components/UI/Formik/FormikFields";
+import { AuthCard, CustomButton } from "../../../Components/UI";
+import { apiCallPost } from "../../../ApiService/axios.service";
+import { APIURL } from "../../../utils/constant";
+import { jwtDecode } from "jwt-decode";
 
-import "./InputField.css";
-import { AuthCard, CustomButton } from "../UI";
-import { Formik } from "formik";
-import { Form } from "react-router-dom";
-import { Input, PasswordInput } from "../UI/Formik/FormikFields";
-
-interface FormField {
-  type: string;
-  label: string;
-  name: string;
-  rules?: any;
-  options?: { value: string; label: string }[];
-  icon?: any;
-}
-
-interface FormProps {
-  fields: FormField[];
-  onSubmit: any;
-}
-
-const FormComponent: React.FC<FormProps> = ({ fields, onSubmit }) => {
-  console.log("fields", fields);
-
+const Login = () => {
+  const navigate = useNavigate();
   const initialValues = {
     mail: "",
     password: "",
   };
+
   const validationSchema = Yup.object({
     mail: Yup.string()
       .email("Please enter a right Email Address")
       .required("Please enter email address"),
     password: Yup.string().required("Please enter password"),
   });
-
+  const onSubmit = async (values: any) => {
+    const { token, status }: any = await apiCallPost(APIURL["LOGIN"], {
+      email: values.mail,
+      password: values.password,
+    });
+    if (status == 200) {
+      localStorage.setItem("token", token);
+      const { email }: { email: string } = jwtDecode(token);
+      localStorage.setItem("email", email);
+      navigate("/dashboard");
+    }
+  };
   return (
     <AuthCard
       isLogo
-      title="Hr Crm SignUp"
-      subtitle="Enter your account details"
+      title="Login to Admin"
+      subtitle="Enter your account details to login"
     >
       <Formik
         initialValues={initialValues}
@@ -82,4 +82,4 @@ const FormComponent: React.FC<FormProps> = ({ fields, onSubmit }) => {
   );
 };
 
-export default FormComponent;
+export default Login;

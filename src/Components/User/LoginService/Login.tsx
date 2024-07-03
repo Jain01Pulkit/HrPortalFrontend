@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { LoginApi } from "../../../apiServices/apiFetch";
 import "./Login.scss";
 import { useNavigate } from "react-router-dom";
+import { AuthCard } from "../../UI";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -31,46 +32,48 @@ const Login = () => {
   };
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-6">
-          <div className="login">
-            <div className="login-header">
-              <h2>HrPortal Login</h2>
+    <AuthCard isLogo title="Hr Crm SignUp" subtitle="Enter your  details">
+      <div className="container">
+        <div className="row">
+          <div className="col-6">
+            <div className="login">
+              <div className="login-header">
+                <h2>HrPortal Login</h2>
+              </div>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div>
+                  <label>Email:</label>
+                  <input
+                    className="form-control"
+                    placeholder="Email"
+                    type="email"
+                    {...register("email", { required: "Email is required" })}
+                  />
+                  {errors.email && <p>Emial Is Required</p>}
+                </div>
+
+                <div>
+                  <label>Password:</label>
+                  <input
+                    type="password"
+                    className="form-control"
+                    placeholder="**********"
+                    {...register("password", {
+                      required: "Password is required",
+                    })}
+                  />
+                  {errors.password && <p>Password is required</p>}
+                </div>
+
+                <button className="btn btn-primary mt-4" type="submit">
+                  Login
+                </button>
+              </form>
             </div>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div>
-                <label>Email:</label>
-                <input
-                  className="form-control"
-                  placeholder="Email"
-                  type="email"
-                  {...register("email", { required: "Email is required" })}
-                />
-                {errors.email && <p>Emial Is Required</p>}
-              </div>
-
-              <div>
-                <label>Password:</label>
-                <input
-                  type="password"
-                  className="form-control"
-                  placeholder="**********"
-                  {...register("password", {
-                    required: "Password is required",
-                  })}
-                />
-                {errors.password && <p>Password is required</p>}
-              </div>
-
-              <button className="btn btn-primary mt-4" type="submit">
-                Login
-              </button>
-            </form>
           </div>
         </div>
       </div>
-    </div>
+    </AuthCard>
   );
 };
 

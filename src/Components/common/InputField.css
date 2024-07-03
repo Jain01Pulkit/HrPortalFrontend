@@ -1,29 +1,6 @@
 /* form.css */
 
 /* Base styles and CSS variables for theming */
-:root {
-  --primary-color: #007bff;
-  --primary-hover-color: #0056b3;
-  --error-color: #d9534f;
-  --border-radius: 4px;
-  --font-family: "Helvetica Neue", sans-serif;
-  --background-image: linear-gradient(to top, #d299c2 0%, #fef9d7 100%);
-  --form-background-color: #ffffff;
-  --input-border-color: #ced4da;
-  --input-focus-border-color: #80bdff;
-  --input-focus-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
-}
-
-body {
-  font-family: var(--font-family);
-  background-image: var(--background-image);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  padding: 100px;
-}
 
 .common-form {
   background-color: var(--form-background-color);
@@ -33,6 +10,7 @@ body {
   max-width: 400px;
   width: 100%;
   display: flex;
+  justify-content: center;
   flex-direction: column;
   box-sizing: border-box;
 }
