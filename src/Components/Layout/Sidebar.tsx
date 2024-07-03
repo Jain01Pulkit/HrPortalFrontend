@@ -1,78 +1,103 @@
-import { Link, Outlet } from "react-router-dom";
-import "./sidebar.scss";
 import { useState } from "react";
-const Sidebar = () => {
-  const [active, setActive] = useState("/dashboard");
+import { motion } from "framer-motion";
+import { Link, NavLink } from "react-router-dom";
+import logo from "../../Assets/Icon/logo-full.png";
+import "./Sidebar.scss";
+import { DashboardIcon, HistoryIcon, LogoutIcon } from "../../Assets/Icon/svg/SvgIcons";
+import UserInfo from "../UI/UserInfo/UserInfo";
+import { CustomButton } from "../UI";
+import LogoutModal from "../UI/Modal/LogoutModal/LogoutModal";
+
+type propTypes = {
+  active?: boolean;
+  handleActive?: () => void;
+};
+const Sidebar = (props: propTypes) => {
+  const links = [
+    {
+      icon: <DashboardIcon />,
+      text: "Dashboard",
+      link: "/dashboard",
+    },
+    {
+      icon: <HistoryIcon />,
+      text: "History",
+      link: "/history",
+    },
+  ];
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
-    <div className="container-fluid h-100">
-      <div className="row h-100">
-        <div className="col-2 bg-dark sidebar">
-          <div className="sidebar-header">
-            <h1 className="text-white">Portal</h1>
-          </div>
-          <ul className="nav flex-column tabs">
-            <li className="nav-item">
-              <Link
-                to="/dashboard"
-                className={`nav-link text-white ${
-                  active == "/dashboard" ? "active" : ""
-                }`}
-                onClick={() => setActive("/dashboard")}
-              >
-                Dashboard
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                to="/employee"
-                className={`nav-link text-white ${
-                  active == "/employee" ? "active" : ""
-                }`}
-                onClick={() => setActive("/employee")}
-              >
-                Employees
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                to="/profile"
-                className={`nav-link text-white ${
-                  active == "/profile" ? "active" : ""
-                }`}
-                onClick={() => setActive("/profile")}
-              >
-                Profile
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                to="/holidays"
-                className={`nav-link text-white ${
-                  active == "/holidays" ? "active" : ""
-                }`}
-                onClick={() => setActive("/holidays")}
-              >
-                Holidays
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                to="/roles"
-                className={`nav-link text-white ${
-                  active == "/roles" ? "active" : ""
-                }`}
-                onClick={() => setActive("/roles")}
-              >
-                Roles
-              </Link>
-            </li>
+    <>
+      <div
+        onClick={props.handleActive}
+        className={`overlay ${props.active ? "active" : ""} d-xl-none`}
+      />
+      <motion.div
+        className="sidebar_bg"
+        animate={{
+          ...(props.active
+            ? {
+                width: window.screen.availWidth < 575 ? "100%" : "350px",
+                borderRadius: "0",
+              }
+            : {
+                width: "0",
+                borderRadius: "0 100% 100% 0",
+              }),
+        }}
+        transition={{
+          type: "tween",
+          duration: props.active ? 0.8 : 0.3,
+          ease: !props.active ? "backIn" : "backOut",
+        }}
+      />
+      <motion.aside
+        className="sidebar"
+        animate={{
+          transform: props.active ? "translateX(0)" : "translateX(-100%)",
+        }}
+        transition={{
+          type: "spring",
+          duration: 0.2,
+        }}
+      >
+        <Link
+          to="/dashboard"
+          className="sidebar__logo"
+          onClick={props.handleActive}
+        >
+          <img src={logo} alt="logo" height={30} />
+        </Link>
+        <div className="sidebar__inner">
+          <ul className="sidebar__inner__top">
+            {links.map((item) => (
+              <li key={item.link}>
+                <NavLink to={item.link} onClick={props.handleActive}>
+                  <span>{item.icon}</span>
+                  {item.text}
+                </NavLink>
+              </li>
+            ))}
           </ul>
+
+          <div className="sidebar__inner__bottom">
+            <UserInfo className="d-md-none" />
+            <CustomButton
+              onClick={handleShow}
+              className="secondary-btn"
+              icon={<LogoutIcon />}
+              text="Logout"
+            />
+          </div>
         </div>
-        <div className="col-10 bg-success content">
-          <Outlet />
-        </div>
-      </div>
-    </div>
+      </motion.aside>
+      <LogoutModal show={show} onHide={handleClose} />
+    </>
   );
 };
+
 export default Sidebar;

@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import ReactCodeInput from "react-code-input";
-import CustomModal from "../../../../../../../design/src/Components/UI/Modal/CustomModal";
-import CustomButton from "../../../../../../../design/src/Components/UI/CustomButton/CustomButton";
 import Label from "../../Formik/Label/Label";
 import "./VerifyEmailModal.scss";
+import CustomModal from "../CustomModal";
+import CustomButton from "../../CustomButton/CustomButton";
 
 const VerifyEmailModal = ({
   show,

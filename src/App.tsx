@@ -5,12 +5,10 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import Login from "./Components/User/LoginService/Login";
 import SignUp from "./Components/User/SignupService/SignUp";
-import Dashboard from "./Components/Layout/Dashboard";
 import Employee from "./Components/Employee/Employee";
 import MainLayout from "./Components/Layout/MainLayout";
-import { AuthLayout } from "./Components/Pages";
+import { AuthLayout,Dashboard,Login } from "./Components/Pages";
 
 const App = () => {
   const router = createBrowserRouter(

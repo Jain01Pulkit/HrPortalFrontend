@@ -2,9 +2,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Label from "../Label/Label";
 import { useRef, useState } from "react";
-import { CalendarIcon } from "../../../../../../../design/src/Assets/Icon/svg/SvgIcons";
 import "../Input/Input.scss";
 import "./CustomDatePicker.scss";
+import { CalendarIcon } from "../../../../Assets/Icon/svg/SvgIcons";
 
 const CustomDatePicker = (props: {
   options?: any;

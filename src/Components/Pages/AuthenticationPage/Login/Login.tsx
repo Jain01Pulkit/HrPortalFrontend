@@ -1,14 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
-import {
-  Input,
-  PasswordInput,
-} from "../../../Components/UI/Formik/FormikFields";
-import { AuthCard, CustomButton } from "../../../Components/UI";
-import { apiCallPost } from "../../../ApiService/axios.service";
-import { APIURL } from "../../../utils/constant";
-import { jwtDecode } from "jwt-decode";
+import { AuthCard, CustomButton } from "../../../UI";
+import { Input, PasswordInput } from "../../../UI/Formik/FormikFields";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -24,16 +18,16 @@ const Login = () => {
     password: Yup.string().required("Please enter password"),
   });
   const onSubmit = async (values: any) => {
-    const { token, status }: any = await apiCallPost(APIURL["LOGIN"], {
-      email: values.mail,
-      password: values.password,
-    });
-    if (status == 200) {
-      localStorage.setItem("token", token);
-      const { email }: { email: string } = jwtDecode(token);
-      localStorage.setItem("email", email);
-      navigate("/dashboard");
-    }
+    // const { token, status }: any = await apiCallPost(APIURL["LOGIN"], {
+    //   email: values.mail,
+    //   password: values.password,
+    // });
+    // if (status == 200) {
+    //   localStorage.setItem("token", token);
+    //   const { email }: { email: string } = jwtDecode(token);
+    //   localStorage.setItem("email", email);
+    //   navigate("/dashboard");
+    // }
   };
   return (
     <AuthCard
