@@ -4,11 +4,23 @@ import { useNavigate } from "react-router-dom";
 import { inputBox } from "./FormInput";
 import { SubmitHandler } from "react-hook-form";
 import FormComponent from "../../common/InputField";
+import { useEffect, useState } from "react";
 interface IFormInput {
   [key: string]: any;
 }
 
 export default function SignUp() {
+  const [initialValues, setInitialValues] = useState({});
+
+  useEffect(() => {
+    // Generate initial values from inputBox
+    const initial = inputBox.reduce((values: any, field: any) => {
+      values[field.name] = "";
+      return values;
+    }, {});
+    setInitialValues(initial);
+  }, []);
+
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
@@ -34,5 +46,5 @@ export default function SignUp() {
     }
   };
 
-  return <FormComponent fields={inputBox} onSubmit={onSubmit} />;
+  return <FormComponent fields={inputBox} onSubmit={onSubmit} initialValues={initialValues} />;
 }

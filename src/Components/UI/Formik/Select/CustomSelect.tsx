@@ -9,7 +9,10 @@ const CustomSelect = (props: {
   defaultValue?: any;
   label?: string | number | undefined;
   className?: string | undefined;
+  onChange?: any;
+  value?: any;
 }) => {
+  console.log("ccccccccc", props.value);
   return (
     <div
       className={`common-select-wrapper  ${
@@ -23,7 +26,9 @@ const CustomSelect = (props: {
         classNamePrefix="react-select"
         menuIsOpen={props.menuIsOpen}
         isSearchable={props.isSearchable}
-        defaultValue={props.defaultValue}
+        // defaultValue={props.defaultValue}
+        onChange={props.onChange}
+        value={props.value}
       />
     </div>
   );

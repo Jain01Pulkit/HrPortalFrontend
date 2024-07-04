@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
 
 import "./InputField.css";
 import { AuthCard, CustomButton } from "../UI";
-import { Formik } from "formik";
+import { ErrorMessage, Formik } from "formik";
 import { Form } from "react-router-dom";
-import { Input, PasswordInput } from "../UI/Formik/FormikFields";
+import { CustomSelect, Input, PasswordInput } from "../UI/Formik/FormikFields";
 
 interface FormField {
   type: string;
@@ -19,21 +19,27 @@ interface FormField {
 interface FormProps {
   fields: FormField[];
   onSubmit: any;
+  initialValues: any;
 }
 
-const FormComponent: React.FC<FormProps> = ({ fields, onSubmit }) => {
+const FormComponent: React.FC<FormProps> = ({
+  fields,
+  onSubmit,
+  initialValues,
+}) => {
   console.log("fields", fields);
-
-  const initialValues = {
-    mail: "",
-    password: "",
-  };
-  const validationSchema = Yup.object({
-    mail: Yup.string()
-      .email("Please enter a right Email Address")
-      .required("Please enter email address"),
-    password: Yup.string().required("Please enter password"),
-  });
+  console.log("initialValues", initialValues);
+  const [select, setSelect] = useState("");
+  // const initialValues = {
+  //   mail: "",
+  //   password: "",
+  // };
+  // const validationSchema = Yup.object({
+  //   mail: Yup.string()
+  //     .email("Please enter a right Email Address")
+  //     .required("Please enter email address"),
+  //   password: Yup.string().required("Please enter password"),
+  // });
 
   return (
     <AuthCard
@@ -43,12 +49,66 @@ const FormComponent: React.FC<FormProps> = ({ fields, onSubmit }) => {
     >
       <Formik
         initialValues={initialValues}
-        validationSchema={validationSchema}
+        // validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        {(formik) => (
-          <Form>
-            <Input
+        {(formik) => {
+          const [selectedOption, setSelectedOption] = useState(null);
+
+       
+          return (
+            <Form>
+              <Form className="common-form">
+                {fields.map((item, index) => (
+                  <ul key={index}>
+                    <li>
+                      {(() => {
+                        switch (item.type) {
+                          case "input":
+                            return (
+                              <Input
+                                label={item.label}
+                                placeholder={`Enter ${item.label}`}
+                                type={
+                                  item?.type == "input" ? "input" : item.type
+                                }
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values[item.name]}
+                                formik={formik}
+                                name={item.name}
+                              />
+                            );
+                          case "select":
+                            return (
+                              <CustomSelect
+                                label={item.label}
+                                options={item.options}
+                                onChange={setSelectedOption}
+                                value={selectedOption}
+                              />
+                            );
+                          default:
+                            return null;
+                        }
+                      })()}
+                      <ErrorMessage
+                        name={item.name}
+                        component="div"
+                        className="error"
+                      />
+                    </li>
+                  </ul>
+                ))}
+                <CustomButton
+                  text="submit"
+                  type="button"
+                  className="w-100"
+                  // disabled={!formik.isValid}
+                />
+              </Form>
+
+              {/* <Input
               label="Email"
               placeholder="Eg”Admin123@gmail.com”"
               type="email"
@@ -66,17 +126,13 @@ const FormComponent: React.FC<FormProps> = ({ fields, onSubmit }) => {
               value={formik.values.password}
               formik={formik}
               name="password"
-            />
-            {/* <div className="forgot-link">
+            /> */}
+              {/* <div className="forgot-link">
               <Link to="/forgot-password">Forgot Password</Link>
             </div> */}
-            <CustomButton
-              text="Login"
-              className="w-100"
-              disabled={!formik.isValid}
-            />
-          </Form>
-        )}
+            </Form>
+          );
+        }}
       </Formik>
     </AuthCard>
   );
