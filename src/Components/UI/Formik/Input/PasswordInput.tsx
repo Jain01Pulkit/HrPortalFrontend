@@ -1,10 +1,7 @@
 import { useState } from "react";
-import {
-  EyeCloseIcon,
-  EyeIcon,
-} from "../../../../../../../design/src/Assets/Icon/svg/SvgIcons";
 import Input from "./Input";
 import "./Input.scss";
+import { EyeCloseIcon, EyeIcon } from "../../../../Assets/Icon/svg/SvgIcons";
 
 const PasswordInput = (props: any) => {
   const { ...rest } = props;
